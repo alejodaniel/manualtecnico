@@ -1,5 +1,6 @@
 package com.alejandro.views;
 
+import com.alejandro.DAO.EmpresaDao;
 import com.alejandro.dominio.Empresa;
 import com.alejandro.dominio.Persona;
 import com.alejandro.dominio.Usuario;
@@ -28,6 +29,7 @@ import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 //import net.sf.jasperreports.web.servlets.ReportActionServlet;
 
@@ -41,6 +43,7 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
     public URL fondo;
     Usuario usuario;
     Empresa empresa;
+    Empresa empresaPrueba;
 
     //extiende el JFRAME y el implements Runnable
     String hora, segundos, minutos, ampm;
@@ -83,6 +86,7 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
             txtempresaActual.setText(empresa.getNombreEmpresa());
             
         }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -94,6 +98,7 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
         txtobtenernombre = new javax.swing.JTextField();
         empresaLabel = new javax.swing.JLabel();
         txtempresaActual = new javax.swing.JTextField();
+        btnrefresh = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         Empresa = new javax.swing.JMenu();
@@ -121,7 +126,6 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
         jMenu7 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         item1 = new javax.swing.JMenuItem();
         item2 = new javax.swing.JMenuItem();
@@ -163,6 +167,20 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
         txtempresaActual.setEditable(false);
         txtempresaActual.setBackground(new java.awt.Color(255, 255, 255));
         txtempresaActual.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txtempresaActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtempresaActualActionPerformed(evt);
+            }
+        });
+
+        btnrefresh.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnrefresh.setText("REFRESCAR");
+        btnrefresh.setFocusable(false);
+        btnrefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,27 +190,33 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(168, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(empresaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtempresaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtobtenernombre, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)))
-                .addGap(30, 30, 30))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(txtobtenernombre, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtempresaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(btnrefresh)))
+                .addGap(110, 110, 110))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(222, 222, 222)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(empresaLabel)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(empresaLabel)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtempresaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(txtobtenernombre))
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtempresaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnrefresh))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtobtenernombre, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/archivos.png"))); // NOI18N
@@ -403,15 +427,6 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
         });
         jMenu9.add(jMenuItem5);
 
-        jMenuItem9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenuItem9.setText("FACTURAS COMPRAS ");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu9.add(jMenuItem9);
-
         jMenu7.add(jMenu9);
 
         jMenuBar1.add(jMenu7);
@@ -619,6 +634,8 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
         }
         
     }
+    
+
     private void item1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item1ActionPerformed
         try {
             UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
@@ -835,6 +852,12 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_editarempresaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+//        JOptionPane.showMessageDialog(this, "Seleccione la empresa ¡¡");
+//        BuscarEmpresaView bev = new BuscarEmpresaView(null, true);
+//        bev.getBtneliminar().setVisible(false);
+//        bev.getBtneditar().setVisible(false);
+//        bev.setVisible(true);
+//        
         ProductosView productosView = new ProductosView(null, true, null, empresa);
         productosView.setVisible(true);
         
@@ -880,13 +903,23 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
 
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void txtempresaActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtempresaActualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_txtempresaActualActionPerformed
+
+    private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
+        EmpresaDao ed = new EmpresaDao(null);
+        Empresa prueba = ed.getEmpresaActiva();
+        txtempresaActual.setText(prueba.getNombreEmpresa());
+        txtobtenernombre.setText(usuario.getEmpleado().getNombre());
+        
+
+    }//GEN-LAST:event_btnrefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Empresa;
     private javax.swing.JMenu User;
+    private javax.swing.JButton btnrefresh;
     private javax.swing.JMenu cliente;
     private javax.swing.JMenuItem editarcliente;
     private javax.swing.JMenuItem editarempleado;
@@ -926,7 +959,6 @@ public class PrincipalView extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem nuevaempresa;
     private javax.swing.JMenuItem nuevocliente;

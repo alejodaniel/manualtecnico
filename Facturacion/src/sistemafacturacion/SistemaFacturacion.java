@@ -20,11 +20,11 @@ public class SistemaFacturacion {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        LoginView lv = new LoginView(null, true, null);
-//        lv.setVisible(true);
+        LoginView lv = new LoginView(null, true, null);
+        lv.setVisible(true);
 
-        PrincipalView pv = new PrincipalView(null, null);
-        pv.setVisible(true);
+        //PrincipalView pv = new PrincipalView(null, null);
+       // pv.setVisible(true);
 //        ProductoDao pd = new ProductoDao(null);
 //        pd.buscarTodos();
 //        CargaView cv = new CargaView(null, true);

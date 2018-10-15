@@ -22,13 +22,13 @@ public class EmpleadoView extends javax.swing.JDialog {
         if (e != null) {
             empresa = e.getEmpresa();
             empleado = e;
+            cargarEmpleado();
 
         } else if(emp != null) {
             empresa = emp;
-        }
-        //        cargarEmpleado();
+        }        
         cargarEmpresaIngresado();
-        cargarEmpleado();
+        
     }
 
     public void cargarEmpresaIngresado() {
@@ -322,7 +322,6 @@ public boolean validarEntradas() {
                 v.setTelefono(txttelefono.getText());
                 v.setCelular(txtcelular.getText());
                 v.setFechaNacimiento(txtdate.getDate());
-
                 v.setEmpresa(empresa);
                 empresa.getEmpleados().add(v);
                 boolean estado = e.guardarEmpleado(v);

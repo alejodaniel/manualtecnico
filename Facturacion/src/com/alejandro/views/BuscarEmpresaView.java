@@ -9,12 +9,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class BuscarEmpresaView extends javax.swing.JDialog {
-    
 
     public BuscarEmpresaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
 //        setIconImage(new ImageIcon(getClass().getResource("/imagenes/buscar.png")).getImage());
         this.setLocationRelativeTo(null);
         this.setVisible(false);
@@ -174,6 +173,7 @@ public class BuscarEmpresaView extends javax.swing.JDialog {
 
     private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
         dispose();
+  
     }//GEN-LAST:event_btncerrarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
@@ -376,4 +376,9 @@ public class BuscarEmpresaView extends javax.swing.JDialog {
     public void setTxtbuscarempresa(javax.swing.JTextField txtbuscarempresa) {
         this.txtbuscarempresa = txtbuscarempresa;
     }
+
+    /**
+     * @return the btnnuevoemp1
+     */
+    
 }

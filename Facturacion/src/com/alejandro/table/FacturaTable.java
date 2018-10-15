@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FacturaTable extends AbstractTableModel {
 
-    String titulo[] = {"Cliente","N.Factura","Fecha","Subtotal","I.V.A","Total"};
+    String titulo[] = { "N.Factura", "Fecha", "Subtotal", "I.V.A", "Total"};
 
     private List<Factura> filas;
     private Factura factura;
@@ -46,21 +46,19 @@ public class FacturaTable extends AbstractTableModel {
         setFactura(getFilas().get(rowIndex));
 
         switch (columnIndex) {
+//            case 0:
+//               return getFactura().getCliente().getNombre();
             case 0:
-                return getFactura().getCliente().getNombre();
-            case 1:
                 return getFactura().getNumeroFactura();
-            case 2:
-                
+            case 1:
+
                 return getFactura().getFechaFactura();
-            case 3:
+            case 2:
                 return getFactura().getSubtotal();
-            case 4:
+            case 3:
                 return getFactura().getIva();
-            case 5:
+            case 4:
                 return getFactura().getValor();
-                
-                
 
         }
 

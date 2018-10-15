@@ -25,6 +25,9 @@ public class FacturaVentaView extends javax.swing.JDialog {
     public FacturaVentaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        getBtnagregar().setEnabled(false);
+        getBtndelete().setEnabled(false);
+        getBtnguardar().setEnabled(false);
 
         items = new ArrayList<>();
         productos = new ArrayList<>();
@@ -41,7 +44,7 @@ public class FacturaVentaView extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnagregar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btndelete = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaFactura = new javax.swing.JTable();
@@ -80,7 +83,7 @@ public class FacturaVentaView extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CLIENTE");
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
@@ -100,11 +103,11 @@ public class FacturaVentaView extends javax.swing.JDialog {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton4.setText("ELIMINAR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btndelete.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btndelete.setText("ELIMINAR");
+        btndelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btndeleteActionPerformed(evt);
             }
         });
 
@@ -266,6 +269,7 @@ public class FacturaVentaView extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setText("Precio");
 
+        txtprecio.setEditable(false);
         txtprecio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -364,7 +368,7 @@ public class FacturaVentaView extends javax.swing.JDialog {
                                 .addComponent(txtnameprod, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(47, 47, 47)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton4)
+                                    .addComponent(btndelete)
                                     .addComponent(btnagregar))))
                         .addGap(0, 66, Short.MAX_VALUE))))
         );
@@ -408,7 +412,7 @@ public class FacturaVentaView extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnagregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btndelete)
                         .addGap(46, 46, 46)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -463,7 +467,7 @@ public void cargarCliente() {
         Formatter frm = new Formatter();
         String ceros = String.valueOf(frm.format("%09d", numerof));
 
-        txtnumfac.setText(ceros);
+        getTxtnumfac().setText(ceros);
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -498,11 +502,11 @@ public void cargarCliente() {
         } else if (getTxtnombre().equals("")) {
             JOptionPane.showMessageDialog(this, "Falta los datos de nombre");
             return false;
-        } else if (getTxtcedula().equals("")) {
+        } else if (getTxtcedula().getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Falta cedula");
-        } else if (getTxtiva().equals("")) {
+        } else if (getTxtiva().getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Falta Direccion");
-        } else if (getTxttelefono().equals("")) {
+        } else if (getTxttelefono().getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Falta Telefono");
         } else if (!validarNumeros.validacion(getTxtcantidad().getText())) {
             JOptionPane.showMessageDialog(this, "Solo se permiten numeros para agregar la cantidad ");
@@ -514,46 +518,53 @@ public void cargarCliente() {
         return true;
     }
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
-        try {
 
-            ItemFactura itemFactura = new ItemFactura();
+        if (Integer.parseInt(getTxtstock().getText()) < Integer.parseInt(getTxtcantidad().getText())) {
+            JOptionPane.showMessageDialog(this, "El stock es menor que la cantidad ingresada");
+        } else {
 
-            itemFactura.setCantidad(Integer.parseInt(getTxtcantidad().getText()));
-            itemFactura.setNombre(producto.getNombre());
-            itemFactura.setValorUnitario(getTxtprecio().getText());
+            try {
 
-            //Multiplica el valor unitario con la cantidad
-            double valorTotal = itemFactura.getCantidad() * Double.parseDouble(itemFactura.getValorUnitario());
-            itemFactura.setValorFinal(valorTotal + "");
+                ItemFactura itemFactura = new ItemFactura();
 
-            items.add(itemFactura);
+                itemFactura.setCantidad(Integer.parseInt(getTxtcantidad().getText()));
+                itemFactura.setNombre(getProducto().getNombre());
+                itemFactura.setValorUnitario(getTxtprecio().getText());
 
-            productos.add(producto);
+                //Multiplica el valor unitario con la cantidad
+                double valorTotal = itemFactura.getCantidad() * Double.parseDouble(itemFactura.getValorUnitario());
+                itemFactura.setValorFinal(valorTotal + "");
 
-            tablaFactura.setModel(new ItemFacturaTable(getItems()));
+                getItems().add(itemFactura);
 
-            total = total + valorTotal;
+                getProductos().add(getProducto());
 
-            calcularProductos();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No hay productos en el panel ");
+                getTablaFactura().setModel(new ItemFacturaTable(getItems()));
 
+                setTotal(getTotal() + valorTotal);
+                int x = Integer.parseInt(getTxtstock().getText()) - Integer.parseInt(getTxtcantidad().getText());
+                getTxtstock().setText(x + "");
+                calcularProductos();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "No hay productos en el panel ");
+
+            }
         }
 
-
     }//GEN-LAST:event_btnagregarActionPerformed
+
     public void calcularProductos() {
 
-        subtotal = total / 1.12;
-        iva = total - subtotal;
-        total = subtotal + iva;
-        subtotal = Math.round(subtotal * 100.0) / 100.0;
-        iva = Math.round(iva * 100.0) / 100.0;
-        total = Math.round(total * 100.0) / 100.0;
+        setSubtotal(getTotal() / 1.12);
+        setIva(getTotal() - getSubtotal());
+        setTotal(getSubtotal() + getIva());
+        setSubtotal(Math.round(getSubtotal() * 100.0) / 100.0);
+        setIva(Math.round(getIva() * 100.0) / 100.0);
+        setTotal(Math.round(getTotal() * 100.0) / 100.0);
 
-        txtsubtotal.setText(subtotal + "");
-        txtiva.setText(iva + "");
-        txttotal.setText(total + "");
+        getTxtsubtotal().setText(getSubtotal() + "");
+        getTxtiva().setText(getIva() + "");
+        getTxttotal().setText(getTotal() + "");
 
     }
     private void txtsubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsubtotalActionPerformed
@@ -561,56 +572,61 @@ public void cargarCliente() {
     }//GEN-LAST:event_txtsubtotalActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        try {
-            Factura factura = new Factura();
+//        JOptionPane.showMessageDialog(this, getTxtnameprod().getText());
 
-            for (int i = 0; i < items.size(); i++) {
-                items.get(i).setProducto(productos.get(i));
-                productos.get(i).getItemFacturas().add(items.get(i));
-                productos.get(i).setStock((Integer.parseInt(productos.get(i).getStock()) - items.get(i).getCantidad()) + "");
+        if (getTxtnameprod().getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Falta el campo producto");
 
-//            if(productos.get(i).getStock((Integer.parseInt(productos.get(i).getStock()) <items.get(i).getCantidad())+"")){
-                items.get(i).setFactura(factura);
-            }
+        } else {
+            try {
+                Factura factura = new Factura();
 
-            factura.setFechaFactura(fechaFacturaChooser.getDate());
-            factura.setNumeroFactura(txtnumfac.getText());
-            factura.setSubtotal(subtotal);
-            factura.setIva(iva);
+                for (int i = 0; i < getItems().size(); i++) {
+                    getItems().get(i).setProducto(getProductos().get(i));
+                    getProductos().get(i).getItemFacturas().add(getItems().get(i));
+                    getProductos().get(i).setStock((Integer.parseInt(getProductos().get(i).getStock()) - getItems().get(i).getCantidad()) + "");
 
-            factura.setValor(total);
-            factura.setType("VENTA");
-            factura.setItemsFactura(items);
+                    getItems().get(i).setFactura(factura);
+                }
 
-            factura.setCliente(cliente);
-            cliente.getFacturas().add(factura);
+                factura.setFechaFactura(getFechaFacturaChooser().getDate());
+                factura.setNumeroFactura(getTxtnumfac().getText());
+                factura.setSubtotal(getSubtotal());
+                factura.setIva(getIva());
 
-            Facturaucc fuc = new Facturaucc();
+                factura.setValor(getTotal());
+                factura.setType("VENTA");
+                factura.setItemsFactura(getItems());
 
-            int guardar = JOptionPane.showConfirmDialog(this, "Desea efectuar la venta ?", "Advertencia", JOptionPane.YES_NO_OPTION);
-            if (guardar == JOptionPane.YES_OPTION) {
-                if (fuc.guardarFactura(factura) == true) {
-                    Reportes reportes = new Reportes();
-                    reportes.imprimir(factura);
-                    JOptionPane.showMessageDialog(this, "Se registro la venta con éxito");
-                    dispose();
+                factura.setCliente(getCliente());
+                getCliente().getFacturas().add(factura);
+
+                Facturaucc fuc = new Facturaucc();
+
+                int guardar = JOptionPane.showConfirmDialog(this, "Desea efectuar la venta ?", "Advertencia", JOptionPane.YES_NO_OPTION);
+                if (guardar == JOptionPane.YES_OPTION) {
+                    if (fuc.guardarFactura(factura) == true) {
+                        Reportes reportes = new Reportes();
+                        reportes.imprimir(factura);
+                        JOptionPane.showMessageDialog(this, "Se registro la venta con éxito");
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al efectuar la venta");
+
+                    }
+
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al efectuar la venta");
 
                 }
 
-            } else {
-
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error para efectuar la venta "
+                        + "\n Verifique ");
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error para efectuar la venta "
-                    + "\n Verifique ");
-        }
 
 
     }//GEN-LAST:event_btnguardarActionPerformed
-
+    }
     private void btnbuscarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarprodActionPerformed
         try {
             BuscarProductoView bpv = new BuscarProductoView(null, true, this, null);
@@ -620,6 +636,9 @@ public void cargarCliente() {
             bpv.setVisible(true);
             if (getProducto() != null) {
                 cargarProducto();
+                getBtnagregar().setEnabled(true);
+                getBtndelete().setEnabled(true);
+                getBtnguardar().setEnabled(true);
             }
 
         } catch (Exception e) {
@@ -633,14 +652,16 @@ public void cargarCliente() {
 
     }//GEN-LAST:event_txtstockActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         try {
-            ItemFacturaTable clienteTable = (ItemFacturaTable) tablaFactura.getModel();
-            ItemFactura item = clienteTable.getFilas().get(tablaFactura.getSelectedRow());
-            total = total - Double.parseDouble(item.getValorFinal());
-            items.remove(item);
-            productos.remove(tablaFactura.getSelectedRow());
-            tablaFactura.setModel(new ItemFacturaTable(getItems()));
+            ItemFacturaTable clienteTable = (ItemFacturaTable) getTablaFactura().getModel();
+            ItemFactura item = clienteTable.getFilas().get(getTablaFactura().getSelectedRow());
+            setTotal(getTotal() - Double.parseDouble(item.getValorFinal()));
+            int x = Integer.parseInt(getTxtstock().getText()) + Integer.parseInt(getTxtcantidad().getText());
+            getTxtstock().setText(x + "");
+            getItems().remove(item);
+            getProductos().remove(getTablaFactura().getSelectedRow());
+            getTablaFactura().setModel(new ItemFacturaTable(getItems()));
 
             calcularProductos();
 
@@ -648,7 +669,7 @@ public void cargarCliente() {
             JOptionPane.showMessageDialog(this, "No hay productos asignados en la factura");
         }
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btndeleteActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
@@ -658,11 +679,11 @@ public void cargarCliente() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregar;
     private javax.swing.JButton btnbuscarprod;
+    private javax.swing.JButton btndelete;
     private javax.swing.JButton btnguardar;
     private com.toedter.calendar.JDateChooser fechaFacturaChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -730,42 +751,42 @@ public void cargarCliente() {
      * @return the jButton2
      */
     public javax.swing.JButton getjButton2() {
-        return btnagregar;
+        return getBtnagregar();
     }
 
     /**
      * @param jButton2 the jButton2 to set
      */
     public void setjButton2(javax.swing.JButton jButton2) {
-        this.btnagregar = jButton2;
+        this.setBtnagregar(jButton2);
     }
 
     /**
      * @return the jButton4
      */
     public javax.swing.JButton getjButton4() {
-        return jButton4;
+        return getBtndelete();
     }
 
     /**
      * @param jButton4 the jButton4 to set
      */
     public void setjButton4(javax.swing.JButton jButton4) {
-        this.jButton4 = jButton4;
+        this.setBtndelete(jButton4);
     }
 
     /**
      * @return the jButton5
      */
     public javax.swing.JButton getjButton5() {
-        return btnguardar;
+        return getBtnguardar();
     }
 
     /**
      * @param jButton5 the jButton5 to set
      */
     public void setjButton5(javax.swing.JButton jButton5) {
-        this.btnguardar = jButton5;
+        this.setBtnguardar(jButton5);
     }
 
     /**
@@ -1141,14 +1162,14 @@ public void cargarCliente() {
      * @return the jDateChooser1
      */
     public com.toedter.calendar.JDateChooser getjDateChooser1() {
-        return fechaFacturaChooser;
+        return getFechaFacturaChooser();
     }
 
     /**
      * @param jDateChooser1 the jDateChooser1 to set
      */
     public void setjDateChooser1(com.toedter.calendar.JDateChooser jDateChooser1) {
-        this.fechaFacturaChooser = jDateChooser1;
+        this.setFechaFacturaChooser(jDateChooser1);
     }
 
     /**
@@ -1289,5 +1310,145 @@ public void cargarCliente() {
      */
     public void setTablaFactura(javax.swing.JTable tablaFactura) {
         this.tablaFactura = tablaFactura;
+    }
+
+    /**
+     * @return the productos
+     */
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    /**
+     * @param productos the productos to set
+     */
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    /**
+     * @return the subtotal
+     */
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    /**
+     * @param subtotal the subtotal to set
+     */
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    /**
+     * @return the iva
+     */
+    public double getIva() {
+        return iva;
+    }
+
+    /**
+     * @param iva the iva to set
+     */
+    public void setIva(double iva) {
+        this.iva = iva;
+    }
+
+    /**
+     * @return the total
+     */
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    /**
+     * @return the btnagregar
+     */
+    public javax.swing.JButton getBtnagregar() {
+        return btnagregar;
+    }
+
+    /**
+     * @param btnagregar the btnagregar to set
+     */
+    public void setBtnagregar(javax.swing.JButton btnagregar) {
+        this.btnagregar = btnagregar;
+    }
+
+    /**
+     * @return the btnguardar
+     */
+    public javax.swing.JButton getBtnguardar() {
+        return btnguardar;
+    }
+
+    /**
+     * @param btnguardar the btnguardar to set
+     */
+    public void setBtnguardar(javax.swing.JButton btnguardar) {
+        this.btnguardar = btnguardar;
+    }
+
+    /**
+     * @return the fechaFacturaChooser
+     */
+    public com.toedter.calendar.JDateChooser getFechaFacturaChooser() {
+        return fechaFacturaChooser;
+    }
+
+    /**
+     * @param fechaFacturaChooser the fechaFacturaChooser to set
+     */
+    public void setFechaFacturaChooser(com.toedter.calendar.JDateChooser fechaFacturaChooser) {
+        this.fechaFacturaChooser = fechaFacturaChooser;
+    }
+
+    /**
+     * @return the jButton3
+     */
+    public javax.swing.JButton getjButton3() {
+        return jButton3;
+    }
+
+    /**
+     * @param jButton3 the jButton3 to set
+     */
+    public void setjButton3(javax.swing.JButton jButton3) {
+        this.jButton3 = jButton3;
+    }
+
+    /**
+     * @return the txtnumfac
+     */
+    public javax.swing.JTextField getTxtnumfac() {
+        return txtnumfac;
+    }
+
+    /**
+     * @param txtnumfac the txtnumfac to set
+     */
+    public void setTxtnumfac(javax.swing.JTextField txtnumfac) {
+        this.txtnumfac = txtnumfac;
+    }
+
+    /**
+     * @return the btndelete
+     */
+    public javax.swing.JButton getBtndelete() {
+        return btndelete;
+    }
+
+    /**
+     * @param btndelete the btndelete to set
+     */
+    public void setBtndelete(javax.swing.JButton btndelete) {
+        this.btndelete = btndelete;
     }
 }

@@ -5,9 +5,8 @@
  */
 package com.alejandro.DAO;
 
-import com.alejandro.dominio.Empresa;
+
 import com.alejandro.dominio.Factura;
-import com.alejandro.dominio.Usuario;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +27,11 @@ public class FacturaDao extends DAOAbstract<Factura> {
 
     public List<Factura> buscarPorCriterio(String escribir) {
         Query query = this.getEntityManager().createQuery("Select f from Factura f where f.cliente.nombre  like '%" + escribir + "%'");
+        return query.getResultList();
+    }
+    
+    public List<Factura> buscarPorCriterioCompra(String escribir) {
+        Query query = this.getEntityManager().createQuery("Select f from Factura f where f.proveedor.nombreEmpresa  like '%" + escribir + "%'");
         return query.getResultList();
     }
 

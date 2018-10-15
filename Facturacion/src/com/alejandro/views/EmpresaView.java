@@ -7,6 +7,7 @@ import com.alejandro.ucc.ValidarEmail;
 import com.alejandro.ucc.ValidarNumeros;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class EmpresaView extends javax.swing.JDialog {
 
@@ -231,14 +232,14 @@ public boolean validarEntradas() {
                 empresa.setTelefono(txttelefonoempresa.getText());
                 empresa.setEmail(txtemailempresa.getText());
                 empresa.setActivo(activoCheckBox.isSelected());
-                
 
                 boolean estado = eucc.editarEmpresa(empresa);
                 int editar = JOptionPane.showConfirmDialog(this, "Desea guardar los cambios", "Advertencia", JOptionPane.YES_NO_OPTION);
                 if (editar == JOptionPane.YES_OPTION) {
                     if (estado == true) {
                         JOptionPane.showMessageDialog(this, "Se edito correctamente ¡¡¡");
-                        dispose();
+//                        SwingUtilities.updateComponentTreeUI(this);
+//                        dispose();
                     } else {
                         JOptionPane.showConfirmDialog(this, "Error al editar");
                     }
@@ -258,6 +259,9 @@ public boolean validarEntradas() {
                 if (guardar == JOptionPane.YES_OPTION) {
                     if (estado == true) {
                         JOptionPane.showMessageDialog(this, "Se guardo correctamente");
+//                        PrincipalView pv = new PrincipalView(null, null);
+//                        pv.setVisible(true);
+
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "Error al guardar");
@@ -270,6 +274,9 @@ public boolean validarEntradas() {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
+//        PrincipalView pv = new PrincipalView(null, null);
+//        pv.refrescarPag();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

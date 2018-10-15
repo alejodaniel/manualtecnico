@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/reportes/Reportes.java</file>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/dominio/Factura.java</file>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/views/BuscarFacturaView.java</file>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/views/FacturaCompraView.java</file>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/reportes/FacturaCompraReport.jrxml</file>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/views/BuscarFacturaCompraView.java</file>
-            <file>file:/C:/Users/ALEJANDRO/Desktop/proy13102018/Facturacion/src/com/alejandro/reportes/FacturaReport.jrxml</file>
+            <file>file:/C:/Users/Alejandro/Desktop/manualtecnico/Facturacion/src/com/alejandro/views/FacturaVentaView.java</file>
+            <file>file:/C:/Users/Alejandro/Desktop/manualtecnico/Facturacion/src/com/alejandro/views/EmpleadoView.java</file>
+            <file>file:/C:/Users/Alejandro/Desktop/manualtecnico/Facturacion/src/com/alejandro/views/ProductosView.java</file>
+            <file>file:/C:/Users/Alejandro/Desktop/manualtecnico/Facturacion/src/com/alejandro/DAO/EmpresaDao.java</file>
+            <file>file:/C:/Users/Alejandro/Desktop/manualtecnico/Facturacion/src/com/alejandro/views/PrincipalView.java</file>
+            <file>file:/C:/Users/Alejandro/Desktop/manualtecnico/Facturacion/src/com/alejandro/views/LoginView.java</file>
         </group>
     </open-files>
 </project-private>

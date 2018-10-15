@@ -9,6 +9,7 @@
 	<parameter name="valorIva" class="java.math.BigDecimal"/>
 	<parameter name="valorTotal" class="java.math.BigDecimal"/>
 	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="nombreCliente" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[Select * from Factura where FechaFactura >= $P{fechaInicio} and FechaFactura <= $P{fechaFin}]]>
 	</queryString>
@@ -48,7 +49,16 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="36" splitType="Stretch"/>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="106" y="16" width="100" height="20" uuid="fdb666f9-25c6-4d59-a1e5-9100155a06ca"/>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="242" y="12" width="100" height="20" uuid="6cacc8b8-d01e-4d4e-8938-39afb2329765"/>
+				<textFieldExpression><![CDATA[$P{nombreCliente}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="50">
@@ -61,15 +71,15 @@
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="254" y="29" width="66" height="20" uuid="46dbb26e-a0a0-42f7-876c-7599a198dcc8"/>
+				<reportElement x="274" y="30" width="66" height="20" uuid="46dbb26e-a0a0-42f7-876c-7599a198dcc8"/>
 				<text><![CDATA[Subtotal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="353" y="29" width="50" height="20" uuid="b4c1f64f-ef4a-4998-be9d-cfb1f591c170"/>
+				<reportElement x="387" y="29" width="50" height="20" uuid="b4c1f64f-ef4a-4998-be9d-cfb1f591c170"/>
 				<text><![CDATA[I.V.A]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="445" y="29" width="63" height="20" uuid="a46e4c55-720d-4f07-834c-d381c39bbd81"/>
+				<reportElement x="488" y="29" width="63" height="20" uuid="a46e4c55-720d-4f07-834c-d381c39bbd81"/>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 		</band>
@@ -85,16 +95,16 @@
 				<textFieldExpression><![CDATA[$F{FECHAFACTURA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="226" y="0" width="100" height="20" uuid="87edff7e-f00d-4f6f-9330-0c3892e61780"/>
-				<textFieldExpression><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="337" y="0" width="100" height="20" uuid="1f573c72-e2a6-4e95-8a2c-a25b58e57918"/>
+				<reportElement x="355" y="0" width="100" height="20" uuid="1f573c72-e2a6-4e95-8a2c-a25b58e57918"/>
 				<textFieldExpression><![CDATA[$F{IVA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="451" y="0" width="100" height="20" uuid="70cd6cd2-f381-495d-90a0-37019a4e43e2"/>
+				<reportElement x="455" y="0" width="100" height="20" uuid="70cd6cd2-f381-495d-90a0-37019a4e43e2"/>
 				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="100" height="20" uuid="87edff7e-f00d-4f6f-9330-0c3892e61780"/>
+				<textFieldExpression><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

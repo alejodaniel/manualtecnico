@@ -3,11 +3,11 @@
  <object class="java.util.HashMap">
   <void method="put">
    <string>javax.persistence.jdbc.url</string>
-   <string>jdbc:mysql://localhost:3307/sistemafacturacion</string>
+   <string>jdbc:mysql://localhost:3306/sistemafacturacion</string>
   </void>
   <void method="put">
    <string>javax.persistence.jdbc.password</string>
-   <string></string>
+   <string>alejodaniel12345</string>
   </void>
   <void method="put">
    <string>javax.persistence.jdbc.user</string>

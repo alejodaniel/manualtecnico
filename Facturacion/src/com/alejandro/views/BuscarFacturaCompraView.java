@@ -128,7 +128,7 @@ public class BuscarFacturaCompraView extends javax.swing.JDialog {
 
         clienteradioButton.setBackground(new java.awt.Color(255, 255, 255));
         clienteradioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        clienteradioButton.setText("Cliente:");
+        clienteradioButton.setText("Proveedor");
         clienteradioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clienteradioButtonActionPerformed(evt);
@@ -244,7 +244,7 @@ public class BuscarFacturaCompraView extends javax.swing.JDialog {
     private void txtbufacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbufacKeyReleased
 
         FacturaDao fd = new FacturaDao(null);
-        List<Factura> facturas = fd.buscarPorCriterio(getTxtbufac().getText());
+        List<Factura> facturas = fd.buscarPorCriterioCompra(getTxtbufac().getText());
         FacturaTable facturaTable = new FacturaTable(facturas);
         getTablafacturas().setModel(facturaTable);
 
@@ -261,7 +261,7 @@ public class BuscarFacturaCompraView extends javax.swing.JDialog {
             List<Factura> facturas = facturaTable.getFilas();
             Reportes reportes = new Reportes();
             if (clienteradioButton.isSelected()) {
-                reportes.imprimirFacName(facturas, txtbufac.getText());
+                reportes.imprimirFacCompraName(facturas, txtbufac.getText());
             } else {
                 reportes.imprimirFacturas(facturas, fechainiciochooser.getDate(), fechafinalchooser.getDate());
             }

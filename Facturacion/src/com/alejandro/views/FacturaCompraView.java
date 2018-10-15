@@ -90,7 +90,7 @@ public class FacturaCompraView extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CLIENTE");
 
-        jPanel2.setBackground(new java.awt.Color(153, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
@@ -556,6 +556,8 @@ public void cargarProveedor() {
             getTablaFactura().setModel(new ItemFacturaTable(getItems()));
 
             setTotal(getTotal() + valorTotal);
+            int x = Integer.parseInt(getTxtstock().getText()) + Integer.parseInt(getTxtcantidad().getText());
+                getTxtstock().setText(x + "");
 
             calcularProductos();
         } catch (Exception e) {
@@ -620,7 +622,7 @@ public void cargarProveedor() {
                 if (guardar == JOptionPane.YES_OPTION) {
                     if (fuc.guardarFactura(factura) == true) {
                         Reportes reportes = new Reportes();
-                        reportes.imprimir(factura);
+                       reportes.imprimirFacturaCompra(factura);
                         JOptionPane.showMessageDialog(this, "Se registro la venta con éxito");
                         dispose();
                     } else {
@@ -667,6 +669,8 @@ public void cargarProveedor() {
             ItemFacturaTable clienteTable = (ItemFacturaTable) getTablaFactura().getModel();
             ItemFactura item = clienteTable.getFilas().get(getTablaFactura().getSelectedRow());
             setTotal(getTotal() - Double.parseDouble(item.getValorFinal()));
+             int x = Integer.parseInt(getTxtstock().getText()) - Integer.parseInt(getTxtcantidad().getText());
+            getTxtstock().setText(x + "");
             getItems().remove(item);
             getProductos().remove(getTablaFactura().getSelectedRow());
             getTablaFactura().setModel(new ItemFacturaTable(getItems()));

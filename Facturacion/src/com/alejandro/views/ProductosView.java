@@ -10,28 +10,30 @@ public class ProductosView extends javax.swing.JDialog {
     Producto producto;
     Empresa empresa;
 
-    public ProductosView(java.awt.Frame parent, boolean modal, Producto product,Empresa emp ) {
+    public ProductosView(java.awt.Frame parent, boolean modal, Producto product, Empresa emp) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+       
         if (product != null) {
             empresa = product.getEmpresa();
-            product = product;
+            producto = product;
+            cargarProductos();
 
-        } else if (empresa != null) {
+        } else if (empresa == null) {
             empresa = emp;
         }
-        //        cargarEmpleado();
+
         cargarEmpresaIngresado();
-        cargarProductos();
+
     }
 
     public void cargarEmpresaIngresado() {
         if (empresa != null) {
             txttraerempresa.setText(empresa.getNombreEmpresa());
+            JOptionPane.showMessageDialog(this, txttraerempresa.getText());
 
-        }
-
+        } 
     }
 
     @SuppressWarnings("unchecked")
@@ -255,12 +257,18 @@ public class ProductosView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void cargarProductos() {
-        txtcodbarras.setText(producto.getCodigoBarras());
-        txtcodigo.setText(producto.getCodigo());
-        txtnombreprod.setText(producto.getNombre());
-        txtprecioprod.setText(producto.getPrecio());
-        txtstock.setText(producto.getStock());
-        txtcostoprod.setText(producto.getStock());
+        try {
+            txtcodbarras.setText(producto.getCodigoBarras());
+            txtcodigo.setText(producto.getCodigo());
+            txtnombreprod.setText(producto.getNombre());
+            txtprecioprod.setText(producto.getPrecio().toString());
+            txtstock.setText(producto.getStock().toString());
+            txtcostoprod.setText(producto.getCosto().toString());
+
+        } catch (Exception e) {
+            System.out.println(e + "aqui");
+        }
+
     }
 
     public boolean validarIngreso() {

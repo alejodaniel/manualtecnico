@@ -233,4 +233,18 @@ public class Empresa {
     public void setType(String type) {
         this.type = type;
     }
+
+    /**
+     * @return the nombreEmpresa1
+     */
+//    public String getNombreEmpresa1() {
+//        return nombreEmpresa1;
+//    }
+//
+//    /**
+//     * @param nombreEmpresa1 the nombreEmpresa1 to set
+//     */
+//    public void setNombreEmpresa1(String nombreEmpresa1) {
+//        this.nombreEmpresa1 = nombreEmpresa1;
+//    }
 }
